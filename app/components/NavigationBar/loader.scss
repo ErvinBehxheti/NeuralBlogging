@@ -1,0 +1,14 @@
+$primary-color: $my-brand-color;
+@import 'loaders.css/src/animations/semi-circle-spin.scss';
+
+.loader-hidden {
+  display: none;
+}
+.loader-active {
+  display: block;
+  transform: scale(0.5) !important;
+  -webkit-transform: scale(0.5) !important;
+  -moz-transform: scale(0.5) !important;
+  -ms-transform: scale(0.5) !important;
+  -o-transform: scale(0.5) !important;
+}

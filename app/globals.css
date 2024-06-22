@@ -2,32 +2,87 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+.newsreader {
+  font-family: var(--font-newsreader), "sans-serif";
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+.poppins {
+  font-family: var(--font-poppins), "sans-serif";
+}
+
+@media (max-width: 380px) {
+  .chat-container {
+    min-width: 100% !important;
+  }
+
+  .chat-resize-handle {
+    display: none; /* Hide resize handle on very small screens */
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+#snackbar {
+  visibility: hidden; /* Hidden by default. Visible on click */
+  width: 280px; /* Set a default minimum width */
+  margin-left: -140px; /* Divide value of min-width by 2 */
+  background-color: #333; /* Black background color */
+  color: #fff; /* White text color */
+  text-align: center; /* Centered text */
+  border-radius: 2px; /* Rounded borders */
+  padding: 16px; /* Padding */
+  position: fixed; /* Sit on top of the screen */
+  z-index: 1; /* Add a z-index if needed */
+  left: 50%; /* Center the snackbar */
+  height: 50px;
+  top: 30px; /* 30px from the bottom */
+  display: flex; /* Allow stacking elements horizontally */
+  align-items: center; /* Vertically center content */
+  justify-content: space-between; /* Distribute content evenly */
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+  visibility: visible;
+  /*Showthesnackbar*/
+  animation: fadein 0.5s;
+  -webkit-animation: fadein 0.5s;
+}
+
+@media only screen and (max-width: 320px) {
+  #snackbar {
+    width: 240px;
+    padding: 8px;
+    margin-left: -120px;
+  }
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    bottom: 0;
+    opacity: 0;
+  }
+  to {
+    bottom: 30px;
+    opacity: 1;
   }
 }
