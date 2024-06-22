@@ -8,6 +8,7 @@ export type Post = {
     author: string;
     image: string;
     title: string;
+    titleSearch: string;
     content: string;
   };
 };
@@ -16,7 +17,7 @@ const Card = ({ post }: Post) => {
   return (
     <article className="rounded-xl overflow-hidden border border-white border-opacity-0 hover:border-opacity-100">
       <Link
-        href={`/${post.id}`}
+        href={`/${post.titleSearch}`}
         className="block bg-white/20 backdrop-blur-md shadow p-4"
       >
         <div className="relative block h-96 w-full">
