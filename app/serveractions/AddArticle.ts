@@ -2,6 +2,7 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { sendPushNotifications } from "../utils/sendNotification";
 
 export async function addArticle(formData: FormData) {
   const title = formData.get("title") as string;
@@ -47,6 +48,8 @@ export async function addArticle(formData: FormData) {
     console.error("Error inserting data", error);
     return;
   }
+
+  await sendPushNotifications(title, content, titleSearch);
 
   redirect("/");
   return { message: "Success" };

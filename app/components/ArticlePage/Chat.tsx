@@ -31,7 +31,7 @@ const Chat = ({ setOpenChat }: Props) => {
   }, [setMessages]);
 
   const chatContainer = useRef<HTMLDivElement>(null);
-  const minChatWidth = 280;
+  const minChatWidth = 400;
   const maxChatWidth = typeof window !== "undefined" ? window.innerWidth : 1000;
 
   const startResizing = (

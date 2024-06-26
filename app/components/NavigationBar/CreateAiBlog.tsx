@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -15,14 +16,13 @@ const CreateAiBlog = () => {
     }
   }, [pathname]);
 
+  if (pathname === "/writearticle") return null;
+
   return (
     <>
-      {" "}
       <Link
         href="/writearticle"
-        className={`${
-          pathname === "/writearticle" ? "hidden" : ""
-        } text-white border p-3 rounded-2xl border-white hover:border-[#6A0DAD] text-lg hover:text-[#6A0DAD] newsreader`}
+        className="text-white border p-3 rounded-2xl border-white hover:border-[#6A0DAD] text-lg hover:text-[#6A0DAD] poppins"
         onClick={() => setIsLoading(true)}
       >
         Create Your AI Blog

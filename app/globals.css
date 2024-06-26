@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.newsreader {
-  font-family: var(--font-newsreader), "sans-serif";
-}
-
 .poppins {
   font-family: var(--font-poppins), "sans-serif";
 }

@@ -31,7 +31,7 @@ const PublishBlog: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center pt-28">
+    <div className="min-h-screen flex items-center justify-center pt-40">
       <div className="bg-white bg-opacity-20 backdrop-blur-lg rounded-xl p-8 shadow-lg w-full max-w-4xl glassmorphism">
         <h1 className="text-3xl font-semibold text-center text-white mb-6">
           Write a Blog Post

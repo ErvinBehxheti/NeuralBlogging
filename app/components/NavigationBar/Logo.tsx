@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -21,7 +22,7 @@ const Logo = () => {
         height={100}
         objectFit="cover"
       />
-      <h1 className="text-white font-bold text-2xl newsreader max-md:hidden">
+      <h1 className="text-white font-bold text-2xl poppins max-md:hidden">
         Neural Blogging
       </h1>
     </Link>

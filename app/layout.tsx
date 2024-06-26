@@ -1,17 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Newsreader, Poppins } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import Image from "next/image";
 import Header from "./components/NavigationBar/Header";
+import ServiceWorkerWrapper from "./hooks/ServiceWorkerWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
-
-const newsreader = Newsreader({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-newsreader",
-  display: "swap",
-});
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -23,7 +17,8 @@ const poppins = Poppins({
 const APP_NAME = "Neural Blogging";
 const APP_DEFAULT_TITLE = "Neural Blogging";
 const APP_TITLE_TEMPLATE = "Neural Blogging";
-const APP_DESCRIPTION = "Neural Blogging: AI meets blogging in a PWA experience.";
+const APP_DESCRIPTION =
+  "Neural Blogging: AI meets blogging in a PWA experience.";
 
 export const metadata: Metadata = {
   applicationName: APP_NAME,
@@ -72,9 +67,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head></head>
-      <body
-        className={`${inter.className} ${newsreader.variable} ${poppins.variable} relative`}
-      >
+      <body className={`${inter.className} ${poppins.variable} relative`}>
+        <ServiceWorkerWrapper />
         <Header />
         <main className="">{children}</main>
         <Image
