@@ -26,14 +26,12 @@ export const sendPushNotifications = async (
     );
 
     const notificationPayload = {
-      notification: {
-        title: "New Blog Post",
-        body: `${title}\n\n${content}`,
-        icon: "/logo/logo-384.png",
-        vibrate: [100, 50, 100],
-        data: {
-          url: `/${titleSearch}`,
-        },
+      title: "New Blog Post",
+      body: `${title}\n\n${content}`,
+      icon: "/logo/logo-512.png",
+      vibrate: [100, 50, 100],
+      data: {
+        url: `/${titleSearch}`,
       },
     };
 

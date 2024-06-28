@@ -20,7 +20,7 @@ const Logo = () => {
         alt="logo"
         width={100}
         height={100}
-        objectFit="cover"
+        className="object-cover"
       />
       <h1 className="text-white font-bold text-2xl poppins max-md:hidden">
         Neural Blogging

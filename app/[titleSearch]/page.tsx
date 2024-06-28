@@ -27,8 +27,8 @@ export default async function Post({ params }: { params: any }) {
                 <Image
                   src={`http://res.cloudinary.com/diaxmj0pa/image/fetch/w_auto,f_auto/https://opplwblqtuvbutcbnlbg.supabase.co/storage/v1/object/public/images/${post.image}`}
                   alt={post.title}
-                  layout="fill"
-                  objectFit="cover"
+                  fill
+                  className="object-cover"
                   priority
                 />
               </div>

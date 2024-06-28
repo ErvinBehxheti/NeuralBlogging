@@ -2,6 +2,9 @@
 import * as PWA from "@ducanh2912/next-pwa";
 
 const withPWA = PWA.default({
+  customWorkerSrc: "service-worker",
+  customWorkerDest: "public",
+  customWorkerPrefix: "sw",
   dest: "public",
   cacheOnFrontEndNav: true,
   aggressiveFrontEndNavCaching: true,

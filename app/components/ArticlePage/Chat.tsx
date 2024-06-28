@@ -130,8 +130,7 @@ const Chat = ({ setOpenChat }: Props) => {
                   width={40}
                   height={40}
                   alt="profile pic"
-                  className="ml-2 rounded-full"
-                  objectFit="cover"
+                  className="ml-2 rounded-full object-cover"
                 />
               </>
             ) : (
@@ -143,8 +142,7 @@ const Chat = ({ setOpenChat }: Props) => {
                   width={40}
                   height={40}
                   alt="profile pic"
-                  className="mr-2 rounded-full"
-                  style={{ objectFit: "cover" }}
+                  className="mr-2 rounded-full object-cover"
                 />
                 <p className="bg-gray-300 text-black p-2 rounded-lg max-w-xs break-words">
                   {m.content}
@@ -173,8 +171,7 @@ const Chat = ({ setOpenChat }: Props) => {
               width={50}
               height={50}
               alt="profile pic"
-              className="rounded-full"
-              style={{ objectFit: "cover" }}
+              className="rounded-full object-cover"
             />
           </div>
           <div className="grid justify-center items-center pl-2">

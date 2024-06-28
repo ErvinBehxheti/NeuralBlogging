@@ -6,9 +6,13 @@ import {
   fetchSubscriptionStatus,
   registerServiceWorker,
 } from "@/app/utils/notificiationUtils";
+import "loaders.css/src/animations/semi-circle-spin.scss";
+import Loader from "react-loaders";
 
 const NotificationBell = () => {
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
   const debounce = (func: (...args: any[]) => void, timeout: number = 300) => {
     let timer: NodeJS.Timeout;
     return (...args: any[]) => {
@@ -21,6 +25,7 @@ const NotificationBell = () => {
     const checkSubscriptionStatus = async () => {
       const status = await fetchSubscriptionStatus();
       setNotificationsEnabled(status);
+      setIsLoading(false);
     };
     checkSubscriptionStatus();
   }, []);
@@ -40,6 +45,10 @@ const NotificationBell = () => {
     }, 300),
     [notificationsEnabled]
   );
+
+  if (isLoading) {
+    return <Loader type="semi-circle-spin" active />;
+  }
 
   return (
     <button

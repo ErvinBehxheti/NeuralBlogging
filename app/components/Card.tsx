@@ -22,12 +22,12 @@ const Card = ({ post }: Post) => {
       >
         <div className="relative h-96 block w-full">
           <Image
-            className="rounded-lg"
+            className="rounded-lg object-cover"
             src={`http://res.cloudinary.com/diaxmj0pa/image/fetch/w_auto,f_auto/https://opplwblqtuvbutcbnlbg.supabase.co/storage/v1/object/public/images/${post.image}`}
             alt={post.title}
             priority
             fill
-            objectFit="cover"
+            sizes="(max-width: 600px) 100vw, 300px"
           />
         </div>
         <div className="p-2 pt-6 poppins h-auto text-white">

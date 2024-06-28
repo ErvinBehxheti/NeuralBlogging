@@ -73,13 +73,13 @@ export default function RootLayout({
         <main className="">{children}</main>
         <Image
           fill
-          objectFit="cover"
           src={
             "http://res.cloudinary.com/diaxmj0pa/image/fetch/w_auto,f_auto/https://i.pinimg.com/736x/11/4f/1c/114f1c5a3898297a2b8cf79d413b7339.jpg"
           }
           alt="background-image"
           priority
-          className="absolute top-0 left-0 bottom-0 h-full z-[-1] brightness-50"
+          className="absolute top-0 left-0 bottom-0 h-full z-[-1] brightness-50 object-cover"
+          sizes="100vw"
         />
       </body>
     </html>
