@@ -39,7 +39,11 @@ export const subscribeUserToPush = async (
   registration: ServiceWorkerRegistration
 ) => {
   const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_KEY as string;
+if (!vapidPublicKey) {
+  throw new Error("VAPID Public Key is missing");
+}
   const convertedVapidKey = urlBase64ToUint8Array(vapidPublicKey);
+  console.log(convertedVapidKey)
 
   try {
     const subscription = await registration.pushManager.subscribe({
@@ -89,7 +93,9 @@ export const registerServiceWorker = async () => {
   if ("serviceWorker" in navigator && "PushManager" in window) {
     try {
       const registration = await navigator.serviceWorker.register("/sw.js");
+      console.log("registration", registration)
       const subscription = await subscribeUserToPush(registration);
+      console.log("subscription", subscription)
       await saveSubscription(subscription);
     } catch (error) {
       console.error("Service Worker Error:", error);
