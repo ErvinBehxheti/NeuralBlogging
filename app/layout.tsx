@@ -3,7 +3,6 @@ import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import Image from "next/image";
 import Header from "./components/NavigationBar/Header";
-import ServiceWorkerWrapper from "./hooks/ServiceWorkerWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -68,7 +67,6 @@ export default function RootLayout({
     <html lang="en">
       <head></head>
       <body className={`${inter.className} ${poppins.variable} relative`}>
-        <ServiceWorkerWrapper />
         <Header />
         <main className="">{children}</main>
         <Image
