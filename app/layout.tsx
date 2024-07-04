@@ -4,6 +4,7 @@ import "./globals.css";
 import Image from "next/image";
 import Header from "./components/NavigationBar/Header";
 import ServiceWorkerWrapper from "./hooks/ServiceWorkerWrapper";
+import Footer from "./components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -81,6 +82,7 @@ export default function RootLayout({
           className="absolute top-0 left-0 bottom-0 h-full z-[-1] brightness-50 object-cover"
           sizes="100vw"
         />
+        <Footer />
       </body>
     </html>
   );

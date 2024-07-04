@@ -1,5 +1,7 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
+import { motion } from "framer-motion";
+import { AiOutlineBulb, AiOutlineInfoCircle } from "react-icons/ai";
 
 interface TextAreaProps {
   id?: string;
@@ -22,7 +24,6 @@ const TextArea: React.FC<TextAreaProps> = ({ id }) => {
 
     try {
       const sentences = input.split(". ").slice(-2).join(". ");
-
       const response = await fetch("/api/suggestion", {
         method: "POST",
         headers: {
@@ -139,33 +140,42 @@ const TextArea: React.FC<TextAreaProps> = ({ id }) => {
   }, [text]);
 
   return (
-    <div className="pt-28 max-[639px]:pt-40 flex flex-col items-center min-h-screen w-full">
-      <button
+    <div className="relative flex flex-col items-center min-h-screen w-full">
+      <motion.button
         type="button"
         onClick={toggleAutoSuggestion}
-        className="mb-4 px-4 py-2 bg-white bg-opacity-30 border border-white rounded-xl shadow-md backdrop-blur-md transition duration-200 ease-in-out transform hover:scale-105 active:scale-95"
+        className="mb-4 px-4 py-2 bg-white bg-opacity-30 border border-white rounded-xl shadow-md transition duration-200 ease-in-out transform hover:scale-105 active:scale-95 flex items-center"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
       >
+        <AiOutlineBulb className="text-white mr-2" />
         {autoSuggestEnabled ? "Disable" : "Enable"} Auto Suggestion
-      </button>
+      </motion.button>
       <div className="relative w-full">
         <textarea
           id={id}
-          className="h-96 w-full pl-2 z-10 bg-white bg-opacity-30 border border-white rounded-xl shadow-md backdrop-blur-md caret-current transition duration-200 ease-in-out"
+          className="h-96 w-full px-4 py-2 bg-white bg-opacity-30 border border-white rounded-xl shadow-md caret-current transition duration-200 ease-in-out resize-none"
           onChange={handleChange}
           onKeyDown={handleKeyDown}
           value={text}
-        ></textarea>
+          placeholder="Start typing to get suggestions..."
+        />
         {suggestion && (
-          <div
-            className="absolute top-full mt-2 left-0 w-full p-2 bg-white bg-opacity-80 border border-white rounded-xl shadow-md backdrop-blur-md pointer-events-none"
+          <motion.div
+            className="absolute top-full mt-2 left-0 w-full p-2 bg-white bg-opacity-80 border border-white rounded-xl shadow-md pointer-events-none"
             onClick={handleSuggestionClick}
             style={{ pointerEvents: "auto", cursor: "pointer" }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
           >
             <span className="whitespace-pre-wrap opacity-80">{suggestion}</span>
-          </div>
+          </motion.div>
         )}
       </div>
       <div className="mt-4 text-center text-white/80">
+        <AiOutlineInfoCircle className="inline mr-2 text-white" />
         Type your text, wait {counter} seconds for an auto-suggestion. If
         auto-suggest doesn&apos;t work, trigger it by removing a letter or
         adding one.
