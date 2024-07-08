@@ -68,7 +68,7 @@ export const authOptions: AuthOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ user, account, profile}) {
+    async signIn({ user, account, profile }) {
       if (account?.provider === "github" && profile?.login) {
         // Ensure the user object has a username
         if (!user.username) {
@@ -95,6 +95,6 @@ export const authOptions: AuthOptions = {
   },
 };
 
-export const handler = NextAuth(authOptions);
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
