@@ -7,13 +7,16 @@ import {
   AiOutlineBell,
   AiOutlineLogin,
   AiOutlineHome,
+  AiOutlineLogout,
 } from "react-icons/ai";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ClipLoader } from "react-spinners";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const Header = () => {
+  const { data: session } = useSession();
   const [showToast, setShowToast] = useState<boolean>(false);
   const [notifications, setNotifications] = useState<boolean>(false);
   const pathname = usePathname();
@@ -32,6 +35,8 @@ const Header = () => {
   const handleInstallClick = () => {
     // Logic for handling PWA installation
   };
+
+  console.log({session})
 
   return (
     <>
@@ -80,15 +85,25 @@ const Header = () => {
                 }`}
               />
             </button>
-            <Link
-              href="/signin"
-              className={`flex items-center px-3 py-1.5 text-sm bg-green-600 hover:bg-green-700 focus:ring-2 focus:ring-green-400 focus:outline-none rounded-lg shadow-lg transform transition-transform hover:scale-105 ${
-                pathname === "/signin" ? "bg-green-700" : ""
-              }`}
-            >
-              <AiOutlineLogin className="mr-1" />
-              Sign In
-            </Link>
+            {session ? (
+              <button
+                className="flex items-center px-3 py-1.5 text-sm bg-green-600 hover:bg-green-700 focus:ring-2 text-white focus:ring-green-400 focus:outline-none rounded-lg shadow-lg transform transition-transform hover:scale-105"
+                onClick={() => signOut()}
+              >
+                {" "}
+                <AiOutlineLogout className="mr-1" />
+                Sign Out
+              </button>
+            ) : (
+              <button
+                className="flex items-center px-3 py-1.5 text-sm bg-green-600 hover:bg-green-700 text-white focus:ring-2 focus:ring-green-400 focus:outline-none rounded-lg shadow-lg transform transition-transform hover:scale-105"
+                onClick={() => signIn()}
+              >
+                {" "}
+                <AiOutlineLogin className="mr-1" />
+                Sign In
+              </button>
+            )}
           </div>
           {showToast && pathname !== "/writearticle" && (
             <div className="fixed top-5 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-2 px-4 flex items-center space-x-2 z-30">

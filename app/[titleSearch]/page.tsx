@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import Image from "next/image";
-import { supabase } from "../utils/supabase";
+import { supabase } from "../../utils/supabase";
 import { FaUserAlt } from "react-icons/fa";
 
 async function getArticles(params: any) {

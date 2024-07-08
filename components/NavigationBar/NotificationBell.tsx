@@ -5,7 +5,7 @@ import {
   disableNotifications,
   fetchSubscriptionStatus,
   registerServiceWorker,
-} from "@/app/utils/notificiationUtils";
+} from "@/utils/notificiationUtils";
 import "loaders.css/src/animations/semi-circle-spin.scss";
 import Loader from "react-loaders";
 

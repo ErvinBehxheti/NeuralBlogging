@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import TextArea from "./TextArea";
-import { addArticle } from "@/app/serveractions/AddArticle";
+import { addArticle } from "@/serveractions/AddArticle";
 import { motion } from "framer-motion";
 import {
   AiOutlineForm,

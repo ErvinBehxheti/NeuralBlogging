@@ -18,9 +18,6 @@ const MainSection = () => {
     },
   };
 
-  const typingText = "I wanna post a blog!";
-  const suggestionText = "Start your journey with AI blogging!";
-
   return (
     <section className="relative overflow-hidden min-h-screen grid items-center justify-center p-6 md:p-24 poppins">
       <motion.div
@@ -98,16 +95,13 @@ const MainSection = () => {
                 initial="hidden"
                 animate="visible"
               >
-                {typingText.split("").map((char, index) => (
-                  <motion.span
-                    key={index}
+                <motion.span
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 0.05, delay: index * 0.05 }}
+                    transition={{ duration: 0.05, delay: 0.05 }}
                   >
-                    {char}
+                    I wanna post a blog!
                   </motion.span>
-                ))}
               </motion.span>
             </motion.div>
             <motion.div
@@ -116,7 +110,7 @@ const MainSection = () => {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 1.3 }}
             >
-              {suggestionText}
+              Start your journey with AI blogging!
             </motion.div>
           </motion.div>
         </div>

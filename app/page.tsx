@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
-import { supabase } from "./utils/supabase";
-import Card from "./components/Card";
-import MainSection from "./components/MainSection";
+import { supabase } from "../utils/supabase";
+import Card from "../components/Card";
+import MainSection from "../components/MainSection";
 
 const Home = async () => {
   const { data: articles } = await supabase(cookies)

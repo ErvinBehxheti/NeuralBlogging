@@ -5,7 +5,6 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 export async function POST(request: Request) {
   try {
     const subscription = await request.json();
-    console.log("Received subscription:", subscription);
 
     const cookieStore = cookies();
     const supabase = createServerComponentClient({ cookies: () => cookieStore });
@@ -26,7 +25,6 @@ export async function POST(request: Request) {
       );
     }
 
-    console.log("Subscription saved successfully");
     return NextResponse.json({ message: "Subscription saved" });
   } catch (error) {
     console.error("Error processing subscription:", error);
