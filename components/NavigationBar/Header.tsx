@@ -36,7 +36,7 @@ const Header = () => {
     // Logic for handling PWA installation
   };
 
-  console.log({session})
+  console.log('headerSession', {session})
 
   return (
     <>
