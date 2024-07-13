@@ -3,7 +3,6 @@ import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import Image from "next/image";
 import { getServerSession } from "next-auth";
-import SessionProvider from "../components/SessionProvider";
 import Header from "../components/NavigationBar/Header";
 import ServiceWorkerWrapper from "../hooks/ServiceWorkerWrapper";
 import Footer from "../components/Footer";
@@ -69,27 +68,25 @@ export default async function RootLayout({
 }>) {
   const session = await getServerSession();
 
-  console.log('session', session)
+  console.log("session", session);
   return (
     <html lang="en">
       <head></head>
       <body className={`${inter.className} ${poppins.variable} relative`}>
-        <SessionProvider session={session}>
-          <ServiceWorkerWrapper />
-          <Header />
-          <main className="">{children}</main>
-          <Image
-            fill
-            src={
-              "http://res.cloudinary.com/diaxmj0pa/image/fetch/w_auto,f_auto/https://i.pinimg.com/736x/11/4f/1c/114f1c5a3898297a2b8cf79d413b7339.jpg"
-            }
-            alt="background-image"
-            priority
-            className="absolute top-0 left-0 bottom-0 h-full z-[-1] brightness-50 object-cover"
-            sizes="100vw"
-          />
-          <Footer />
-        </SessionProvider>
+        <ServiceWorkerWrapper />
+        <Header />
+        <main className="">{children}</main>
+        <Image
+          fill
+          src={
+            "http://res.cloudinary.com/diaxmj0pa/image/fetch/w_auto,f_auto/https://i.pinimg.com/736x/11/4f/1c/114f1c5a3898297a2b8cf79d413b7339.jpg"
+          }
+          alt="background-image"
+          priority
+          className="absolute top-0 left-0 bottom-0 h-full z-[-1] brightness-50 object-cover"
+          sizes="100vw"
+        />
+        <Footer />
       </body>
     </html>
   );
