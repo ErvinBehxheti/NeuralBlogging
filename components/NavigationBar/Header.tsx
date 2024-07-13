@@ -1,40 +1,22 @@
-"use client";
+"use server";
 
+import Link from "next/link";
 import Image from "next/image";
 import {
-  AiOutlineCloudDownload,
   AiOutlineRocket,
-  AiOutlineBell,
   AiOutlineLogin,
   AiOutlineHome,
   AiOutlineLogout,
 } from "react-icons/ai";
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { ClipLoader } from "react-spinners";
+import InstallButton from "./InstallButton";
+import NotificationButton from "./NotificationButton";
+import CreateAiBlog from "./CreateAiBlog";
+import { headers } from "next/headers";
 
 const Header = () => {
-  const [showToast, setShowToast] = useState<boolean>(false);
-  const [notifications, setNotifications] = useState<boolean>(false);
-  const pathname = usePathname();
-
-  let isSigned = false;
-
-  useEffect(() => {
-    setNotifications(true); // Example notification logic
-  }, []);
-
-  const handleCreateBlogClick = () => {
-    setShowToast(true);
-    setTimeout(() => {
-      setShowToast(false);
-    }, 3000);
-  };
-
-  const handleInstallClick = () => {
-    // Logic for handling PWA installation
-  };
+  const headerList = headers();
+  const pathname = headerList.get("x-current-path");
+  const isSigned = false;
 
   return (
     <>
@@ -53,39 +35,11 @@ const Header = () => {
             </h1>
           </Link>
           <div className="flex items-center space-x-2 md:space-x-2">
-            <Link
-              href="/writearticle"
-              className={`flex items-center px-3 py-1.5 text-sm bg-purple-600 hover:bg-purple-700 focus:ring-2 focus:ring-purple-400 focus:outline-none rounded-lg shadow-lg transform transition-transform hover:scale-105 text-white ${
-                pathname === "/writearticle" ? "bg-purple-700" : ""
-              }`}
-              onClick={handleCreateBlogClick}
-            >
-              <AiOutlineRocket className="mr-1" />
-              Create AI Blog
-            </Link>
-            <button
-              className={`flex items-center px-3 py-1.5 text-sm bg-blue-600 hover:bg-blue-700 focus:ring-2 focus:ring-blue-400 focus:outline-none rounded-lg shadow-lg transform transition-transform hover:scale-105 text-white ${
-                pathname === "/" ? "bg-blue-700" : ""
-              }`}
-              onClick={handleInstallClick}
-            >
-              <AiOutlineCloudDownload className="mr-1" />
-              Install PWA
-            </button>
-            <button
-              className="p-2 rounded-full hover:bg-gray-600"
-              aria-label="Notifications"
-              onClick={() => setNotifications(!notifications)}
-            >
-              <AiOutlineBell
-                className={`text-xl ${
-                  notifications ? "text-red-400" : "text-white"
-                }`}
-              />
-            </button>
+            <CreateAiBlog />
+            <InstallButton />
+            <NotificationButton />
             {isSigned ? (
               <button className="flex items-center px-3 py-1.5 text-sm bg-green-600 hover:bg-green-700 focus:ring-2 text-white focus:ring-green-400 focus:outline-none rounded-lg shadow-lg transform transition-transform hover:scale-105">
-                {" "}
                 <AiOutlineLogout className="mr-1" />
                 Sign Out
               </button>
@@ -94,18 +48,11 @@ const Header = () => {
                 className="flex items-center px-3 py-1.5 text-sm bg-green-600 hover:bg-green-700 text-white focus:ring-2 focus:ring-green-400 focus:outline-none rounded-lg shadow-lg transform transition-transform hover:scale-105"
                 href={"/signup"}
               >
-                {" "}
                 <AiOutlineLogin className="mr-1" />
                 Sign In
               </Link>
             )}
           </div>
-          {showToast && pathname !== "/writearticle" && (
-            <div className="fixed top-5 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded py-2 px-4 flex items-center space-x-2 z-30">
-              <ClipLoader color="#ffffff" size={20} />
-              <span>Getting your creative engine started!</span>
-            </div>
-          )}
         </nav>
       </header>
 
@@ -126,31 +73,12 @@ const Header = () => {
           className={`flex flex-col items-center hover:text-[#8c52ff] ${
             pathname === "/writearticle" ? "text-[#8c52ff]" : "text-white"
           }`}
-          onClick={handleCreateBlogClick}
         >
           <AiOutlineRocket className="text-2xl" />
           <span className="text-xs">Create</span>
         </Link>
-        <button
-          aria-label="Install PWA"
-          className="flex flex-col items-center text-white hover:text-[#8c52ff]"
-          onClick={handleInstallClick}
-        >
-          <AiOutlineCloudDownload className="text-2xl" />
-          <span className="text-xs">Install</span>
-        </button>
-        <button
-          aria-label="Notifications"
-          className="flex flex-col items-center text-white hover:text-red-400"
-          onClick={() => setNotifications(!notifications)}
-        >
-          <AiOutlineBell
-            className={`text-2xl ${
-              notifications ? "text-red-400" : "text-white"
-            }`}
-          />
-          <span className="text-xs">Notifications</span>
-        </button>
+        <InstallButton />
+        <NotificationButton />
       </nav>
     </>
   );

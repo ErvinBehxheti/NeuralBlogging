@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import Image from "next/image";
-import { getServerSession } from "next-auth";
 import Header from "../components/NavigationBar/Header";
 import ServiceWorkerWrapper from "../hooks/ServiceWorkerWrapper";
 import Footer from "../components/Footer";
@@ -66,9 +65,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession();
-
-  console.log("session", session);
   return (
     <html lang="en">
       <head></head>
