@@ -1,3 +1,4 @@
+"use server";
 import { cookies } from "next/headers";
 import { supabase } from "../utils/supabase";
 import Card from "../components/Card";

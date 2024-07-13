@@ -7,6 +7,8 @@ import {
   AiOutlineLogin,
   AiOutlineHome,
   AiOutlineLogout,
+  AiOutlineCloudDownload,
+  AiOutlineBell,
 } from "react-icons/ai";
 import InstallButton from "./InstallButton";
 import NotificationButton from "./NotificationButton";
@@ -77,8 +79,26 @@ const Header = () => {
           <AiOutlineRocket className="text-2xl" />
           <span className="text-xs">Create</span>
         </Link>
-        <InstallButton />
-        <NotificationButton />
+        <Link
+          href="/writearticle"
+          aria-label="Create AI Blog"
+          className={`flex flex-col items-center hover:text-[#8c52ff] ${
+            pathname === "/writearticle" ? "text-[#8c52ff]" : "text-white"
+          }`}
+        >
+          <AiOutlineCloudDownload className="text-2xl" />
+          <span className="text-xs">Install</span>
+        </Link>
+        <Link
+          href="/writearticle"
+          aria-label="Create AI Blog"
+          className={`flex flex-col items-center hover:text-[#8c52ff] ${
+            pathname === "/writearticle" ? "text-[#8c52ff]" : "text-white"
+          }`}
+        >
+          <AiOutlineBell className="text-2xl" />
+          <span className="text-xs truncate">Notifications</span>
+        </Link>
       </nav>
     </>
   );

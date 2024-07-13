@@ -96,12 +96,12 @@ const MainSection = () => {
                 animate="visible"
               >
                 <motion.span
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.05, delay: 0.05 }}
-                  >
-                    I wanna post a blog!
-                  </motion.span>
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.05, delay: 0.05 }}
+                >
+                  I wanna post a blog!
+                </motion.span>
               </motion.span>
             </motion.div>
             <motion.div
