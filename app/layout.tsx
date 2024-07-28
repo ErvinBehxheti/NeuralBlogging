@@ -5,6 +5,7 @@ import Image from "next/image";
 import Header from "../components/NavigationBar/Header";
 import ServiceWorkerWrapper from "../hooks/ServiceWorkerWrapper";
 import Footer from "../components/Footer";
+import NextTopLoader from "nextjs-toploader";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -69,6 +70,17 @@ export default async function RootLayout({
     <html lang="en">
       <head></head>
       <body className={`${inter.className} ${poppins.variable} relative`}>
+        <NextTopLoader
+          color="#8c52ff"
+          initialPosition={0.08}
+          crawlSpeed={200}
+          height={3}
+          crawl={true}
+          showSpinner={true}
+          easing="ease"
+          speed={200}
+          shadow="0 0 10px #2299DD,0 0 5px #2299DD"
+        />
         <ServiceWorkerWrapper />
         <Header />
         <main className="">{children}</main>

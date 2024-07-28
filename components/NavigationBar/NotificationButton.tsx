@@ -8,13 +8,16 @@ const NotificationButton = () => {
 
   return (
     <button
-      className="p-2 rounded-full hover:bg-gray-600"
+      className={`p-2 rounded-full flex flex-col items-center hover:text-[#8c52ff] ${
+        notifications ? "text-[#8c52ff]" : "text-white"
+      }`}
       aria-label="Notifications"
       onClick={() => setNotifications(!notifications)}
     >
       <AiOutlineBell
-        className={`text-xl ${notifications ? "text-red-400" : "text-white"}`}
+        className={`text-xl ${notifications ? "text-[#8c52ff]" : "text-white"}`}
       />
+      <span className="text-xs truncate">Off</span>
     </button>
   );
 };
