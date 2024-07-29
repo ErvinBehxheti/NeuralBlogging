@@ -10,12 +10,23 @@ import {
   AiOutlineHome,
   AiOutlineCloudDownload,
   AiOutlineLogin,
+  AiFillHome,
+  AiFillRocket,
 } from "react-icons/ai";
 import { AnimatePresence, motion } from "framer-motion";
 import NotificationButton from "./NotificationButton";
+import SignOutButton from "./SignoutButton";
+import { usePathname } from "next/navigation";
 
-const UserMenu = ({ user, pathname }: any) => {
+const UserMenu = ({ user }: any) => {
+  const [isOpen, setIsOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const pathname = usePathname();
+  console.log("pathname", pathname);
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -29,6 +40,55 @@ const UserMenu = ({ user, pathname }: any) => {
 
   return (
     <>
+      <div className="relative hidden md:block">
+        <button
+          onClick={toggleDropdown}
+          className="flex items-center"
+          aria-label="User Menu"
+        >
+          {user?.profilePicture ? (
+            <Image
+              src={user.profilePicture}
+              alt="Profile Picture"
+              width={40}
+              height={40}
+              className="rounded-full object-cover"
+            />
+          ) : (
+            <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-500 text-white text-xl">
+              {getInitial(user?.name)}
+            </div>
+          )}
+        </button>
+        {isOpen && (
+          <div className="absolute right-0 mt-2 w-48 bg-[#0e1217]/80 border border-[#8c52ff] shadow-lg rounded-lg text-white">
+            <ul className="py-2">
+              <li>
+                <Link
+                  href="/profile/blogs"
+                  className="flex items-center px-4 py-2 hover:bg-[#8c52ff] hover:text-white transition-colors"
+                >
+                  <AiOutlineRocket className="mr-2" />
+                  My Blogs
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/profile/settings"
+                  className="flex items-center px-4 py-2 hover:bg-[#8c52ff] hover:text-white transition-colors"
+                >
+                  <AiOutlineUser className="mr-2" />
+                  Settings
+                </Link>
+              </li>
+              <li className="pl-4 py-2">
+                <SignOutButton />
+              </li>
+            </ul>
+          </div>
+        )}
+      </div>
+
       <nav className="fixed bottom-0 h-16 left-0 w-full poppins glassmorphism bg-[#0e1217]/70 border-t border-[#8c52ff] shadow-[#8c52ff] flex items-center justify-between p-3 md:hidden z-10">
         <Link
           href="/"
@@ -37,7 +97,11 @@ const UserMenu = ({ user, pathname }: any) => {
             pathname === "/" ? "text-[#8c52ff]" : "text-white"
           }`}
         >
-          <AiOutlineHome className="text-2xl" />
+          {pathname === "/" ? (
+            <AiFillHome className="text-2xl" />
+          ) : (
+            <AiOutlineHome className="text-2xl" />
+          )}
           <span className="text-xs">Home</span>
         </Link>
         <Link
@@ -47,7 +111,11 @@ const UserMenu = ({ user, pathname }: any) => {
             pathname === "/writearticle" ? "text-[#8c52ff]" : "text-white"
           }`}
         >
-          <AiOutlineRocket className="text-2xl" />
+          {pathname === "/writearticle" ? (
+            <AiFillRocket className="text-2xl" />
+          ) : (
+            <AiOutlineRocket className="text-2xl" />
+          )}
           <span className="text-xs">Create</span>
         </Link>
         <Link
@@ -80,12 +148,12 @@ const UserMenu = ({ user, pathname }: any) => {
           </button>
         ) : (
           <Link
-            href="/signup"
-            aria-label="Sign In"
+            href="/login"
+            aria-label="Log In"
             className="flex flex-col items-center hover:text-[#8c52ff] text-white"
           >
             <AiOutlineLogin className="text-2xl" />
-            <span className="text-xs">Sign In</span>
+            <span className="text-xs">Log in</span>
           </Link>
         )}
       </nav>
@@ -129,10 +197,10 @@ const UserMenu = ({ user, pathname }: any) => {
                   </Link>
                 </li>
                 <li>
-                  <button onClick={() => alert("Sign out")}>
+                  <button onClick={() => alert("Log out")}>
                     <a className="flex items-center px-4 py-2 hover:bg-[#8c52ff] hover:text-white transition-colors">
                       <AiOutlineClose className="mr-2" />
-                      Sign Out
+                      Log Out
                     </a>
                   </button>
                 </li>

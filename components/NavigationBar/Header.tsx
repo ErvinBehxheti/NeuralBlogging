@@ -2,12 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import {
-  AiOutlineRocket,
-  AiOutlineLogin,
-  AiOutlineHome,
-  AiOutlineCloudDownload,
-} from "react-icons/ai";
+import { AiOutlineLogin } from "react-icons/ai";
 import InstallButton from "./InstallButton";
 import NotificationButton from "./NotificationButton";
 import CreateAiBlog from "./CreateAiBlog";
@@ -37,25 +32,27 @@ const Header = async () => {
           </h1>
         </Link>
         <div className="flex items-center space-x-2 md:space-x-2">
+          <NotificationButton />
           <CreateAiBlog />
           <InstallButton />
-          <NotificationButton />
           {isSigned ? (
             <UserMenu user={user} />
           ) : (
             <Link
               className="flex items-center px-3 py-1.5 text-sm bg-green-600 hover:bg-green-700 text-white focus:ring-2 focus:ring-green-400 focus:outline-none rounded-lg shadow-lg transform transition-transform hover:scale-105"
-              href={"/signup"}
+              href={"/login"}
             >
               <AiOutlineLogin className="mr-1" />
-              Sign In
+              Log In
             </Link>
           )}
         </div>
       </header>
 
       {/* Bottom Navbar for small devices */}
-      <UserMenu user={user} pathname={pathname} />
+      <div className="hidden max-md:block">
+        <UserMenu user={user} pathname={pathname} />
+      </div>
     </>
   );
 };

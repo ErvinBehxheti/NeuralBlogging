@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const userSchema = z.object({
   email: z.string().min(1, "Email is required!").email("Invalid Email"),
@@ -51,17 +52,18 @@ const SigninForm = () => {
   };
 
   return (
-    <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full">
+    <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full mx-auto poppins">
       <h2 className="text-2xl font-semibold text-center text-gray-800 mb-6">
-        Sign In
+        Log In
       </h2>
       {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div className="relative">
-          <FaEnvelope className="absolute left-3 top-3 text-gray-400" />
+          <label className="block text-gray-700">Email</label>
+          <FaEnvelope className="absolute left-3 top-9 text-gray-400" />
           <input
             type="email"
-            placeholder="Email"
+            placeholder="example@gmail.com"
             {...register("email")}
             className="pl-10 w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-600"
           />
@@ -70,16 +72,17 @@ const SigninForm = () => {
           )}
         </div>
         <div className="relative">
-          <FaLock className="absolute left-3 top-3 text-gray-400" />
+          <label className="block text-gray-700">Password</label>
+          <FaLock className="absolute left-3 top-9 text-gray-400" />
           <input
             type={showPassword ? "text" : "password"}
-            placeholder="Password"
+            placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"
             {...register("password")}
             className="pl-10 w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-purple-600"
           />
           <button
             type="button"
-            className="absolute right-3 top-3 text-gray-400"
+            className="absolute right-3 top-9 text-gray-400"
             onClick={() => setShowPassword((prev) => !prev)}
           >
             {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -94,8 +97,14 @@ const SigninForm = () => {
           type="submit"
           className="w-full py-2 bg-purple-600 text-white rounded hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600"
         >
-          Sign In
+          Log In
         </button>
+        <div className="text-center mt-4">
+          <p className="text-gray-700">Don&apos;t have an account?</p>
+          <Link href="/signup" className="text-purple-600 hover:underline">
+            Sign up
+          </Link>
+        </div>
       </form>
     </div>
   );
