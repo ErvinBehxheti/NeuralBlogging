@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { cookies, headers } from "next/headers";
+import { headers } from "next/headers";
 
 export async function verifyToken() {
   const cookies = headers().get("cookie");
@@ -16,7 +16,9 @@ export async function verifyToken() {
 
   try {
     const decoded = jwt.verify(token, secretKey!);
-    return decoded;
+    if (typeof decoded !== "string" && "id" in decoded) {
+      return decoded.id;
+    }
   } catch (error) {
     return null;
   }

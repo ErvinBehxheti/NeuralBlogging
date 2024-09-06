@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import TextArea from "./TextArea";
-import { addArticle } from "@/serveractions/AddArticle";
 import { motion } from "framer-motion";
 import {
   AiOutlineForm,
@@ -10,11 +9,27 @@ import {
   AiOutlineCheckCircle,
   AiOutlineExclamationCircle,
 } from "react-icons/ai";
+import Image from "next/image";
+import { Blog } from "@/types/blog";
 
-const PublishBlog: React.FC = () => {
-  const [title, setTitle] = useState<string>("");
+type PublishBlogT = {
+  user: {
+    id: number;
+    email: string;
+    profilePicture: string | null;
+    name: string | null;
+    username: string;
+    password?: string;
+  } | null;
+  edit: boolean;
+  blogToEdit: Blog | null;
+};
+
+const PublishBlog = ({ user, edit, blogToEdit }: PublishBlogT) => {
+  const [title, setTitle] = useState<string>(
+    blogToEdit ? blogToEdit.title : ""
+  );
   const [image, setImage] = useState<File | null>(null);
-  const [author, setAuthor] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -32,29 +47,49 @@ const PublishBlog: React.FC = () => {
     setErrorMessage(null);
 
     try {
+      const content = (
+        document.getElementById("content") as HTMLTextAreaElement
+      ).value;
       const formData = new FormData();
       formData.append("title", title);
-      formData.append(
-        "content",
-        (document.getElementById("content") as HTMLTextAreaElement).value
-      );
-      formData.append("author", author);
+      formData.append("content", content);
+      formData.append("authorUsername", user?.username as string);
+
       if (image) {
         formData.append("image", image);
       }
 
-      await addArticle(formData);
-      setSuccessMessage("Blog post created successfully!");
+      if (blogToEdit) {
+        formData.append("blogToEdit", String(blogToEdit.id));
+      }
+
+      const endpoint = edit ? "/api/edit-blog" : "/api/add-article";
+      const response = await fetch(endpoint, {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        setSuccessMessage(
+          edit
+            ? "Blog post updated successfully!"
+            : "Blog post created successfully!"
+        );
+      } else {
+        setErrorMessage(result.error || "Failed to process the blog post.");
+      }
     } catch (error) {
-      console.error(error);
-      setErrorMessage("Failed to create blog post.");
+      console.error("Error:", error);
+      setErrorMessage("Failed to process the blog post.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center pt-24 pb-16 bg-gradient-to-t from-purple-500/0 to-blue-500/30 poppins">
+    <div className="min-h-screen flex items-center justify-center pt-24 pb-16 poppins">
       <motion.div
         className="bg-white bg-opacity-30 glassmorphism rounded-xl p-8 shadow-lg w-full max-w-4xl"
         initial={{ opacity: 0, y: 20 }}
@@ -62,8 +97,18 @@ const PublishBlog: React.FC = () => {
         transition={{ duration: 0.5 }}
       >
         <h2 className="text-2xl font-bold text-center text-white mb-6">
-          Create a New Blog Post
+          {edit ? `Edit ${blogToEdit?.title}` : "Create a New Blog Post"}
         </h2>
+        {blogToEdit && (
+          <div className="flex justify-center items-center pb-5">
+            <Image
+              src={`http://res.cloudinary.com/diaxmj0pa/image/fetch/w_auto,f_auto/https://opplwblqtuvbutcbnlbg.supabase.co/storage/v1/object/public/images/${blogToEdit.imageUrl}`}
+              alt={blogToEdit.title}
+              width={500}
+              height={500}
+            />
+          </div>
+        )}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="flex items-center space-x-4">
             <AiOutlineForm className="text-2xl text-white" />
@@ -81,10 +126,9 @@ const PublishBlog: React.FC = () => {
             <input
               type="text"
               placeholder="Author Name"
-              value={author}
-              onChange={(e) => setAuthor(e.target.value)}
+              value={user?.username}
               className="w-full px-4 py-2 bg-white bg-opacity-30 border border-white rounded-xl shadow-md caret-current"
-              required
+              disabled
             />
           </div>
           <div className="flex items-center space-x-4">
@@ -96,7 +140,7 @@ const PublishBlog: React.FC = () => {
               className="w-full px-4 py-2 bg-white bg-opacity-30 border border-white rounded-xl shadow-md caret-current"
             />
           </div>
-          <TextArea id="content" />
+          <TextArea blogToEdit={blogToEdit} />
           <motion.button
             type="submit"
             className={`w-full px-4 py-2 bg-blue-600 text-white rounded-xl shadow-md transition duration-200 ease-in-out hover:bg-blue-700 active:bg-blue-800 ${
@@ -106,7 +150,13 @@ const PublishBlog: React.FC = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            {isSubmitting ? "Publishing..." : "Publish"}
+            {isSubmitting
+              ? edit
+                ? "Editing..."
+                : "Publishing..."
+              : edit
+              ? "Edit"
+              : "Publish"}
           </motion.button>
           {isSubmitting && (
             <div className="relative">

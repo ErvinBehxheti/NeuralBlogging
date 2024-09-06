@@ -1,11 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Poppins } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import Image from "next/image";
-import Header from "../components/NavigationBar/Header";
-import ServiceWorkerWrapper from "../hooks/ServiceWorkerWrapper";
-import Footer from "../components/Footer";
 import NextTopLoader from "nextjs-toploader";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import ServiceWorkerWrapper from "@/hooks/ServiceWorkerWrapper";
+import Header from "@/components/NavigationBar/Header";
+import Footer from "@/components/Footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -83,7 +84,7 @@ export default async function RootLayout({
         />
         <ServiceWorkerWrapper />
         <Header />
-        <main className="">{children}</main>
+        <main className="pt-20">{children}</main>
         <Image
           fill
           src={
@@ -95,6 +96,7 @@ export default async function RootLayout({
           sizes="100vw"
         />
         <Footer />
+        <SpeedInsights />
       </body>
     </html>
   );

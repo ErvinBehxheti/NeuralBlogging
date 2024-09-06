@@ -6,6 +6,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import * as z from "zod";
 import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 const userSchema = z
   .object({
@@ -49,7 +50,7 @@ const SignUpForm = () => {
       });
 
       if (response.ok) {
-        window.location.href = "/";
+        redirect("/");
       } else {
         const errorData = await response.json();
         setError(errorData.message || "Something went wrong.");

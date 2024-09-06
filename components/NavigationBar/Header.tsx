@@ -9,11 +9,19 @@ import CreateAiBlog from "./CreateAiBlog";
 import { headers } from "next/headers";
 import { verifyToken } from "@/serveractions/verifyToken";
 import UserMenu from "./UserMenu";
+import prisma from "@/utils/db";
 
 const Header = async () => {
   const headerList = headers();
   const pathname = headerList.get("x-current-path");
-  const user = await verifyToken();
+  const userID = await verifyToken();
+  let user = null;
+
+  if (userID) {
+    user = await prisma.user.findUnique({
+      where: { id: userID as number },
+    });
+  }
   const isSigned = user ? true : false;
 
   return (

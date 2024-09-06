@@ -2,13 +2,16 @@
 import React, { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { AiOutlineBulb, AiOutlineInfoCircle } from "react-icons/ai";
+import { Blog } from "@/types/blog";
 
-interface TextAreaProps {
-  id?: string;
-}
+type BlogToEditT = {
+  blogToEdit: Blog | null;
+};
 
-const TextArea: React.FC<TextAreaProps> = ({ id }) => {
-  const [text, setText] = useState<string>("");
+const TextArea = ({ blogToEdit }: BlogToEditT) => {
+  const [text, setText] = useState<string>(
+    blogToEdit ? blogToEdit.content : ""
+  );
   const [suggestion, setSuggestion] = useState<string>("");
   const [autoSuggestEnabled, setAutoSuggestEnabled] = useState<boolean>(true);
   const [counter, setCounter] = useState<number>(5);
@@ -154,7 +157,7 @@ const TextArea: React.FC<TextAreaProps> = ({ id }) => {
       </motion.button>
       <div className="relative w-full">
         <textarea
-          id={id}
+          id="content"
           className="h-96 w-full px-4 py-2 bg-white bg-opacity-30 border border-white rounded-xl shadow-md caret-current transition duration-200 ease-in-out resize-none"
           onChange={handleChange}
           onKeyDown={handleKeyDown}

@@ -2,7 +2,6 @@ import prisma from "@/utils/db";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import { redirect } from "next/navigation";
 
 export async function POST(req: Request) {
   const body = await req.json();
@@ -44,7 +43,13 @@ export async function POST(req: Request) {
     }
 
     const token = jwt.sign(
-      { email: user.email, username: user.username, name: user.name },
+      {
+        email: user.email,
+        username: user.username,
+        name: user.name,
+        id: user.id,
+        profilePicture: user.profilePicture,
+      },
       secretKey,
       {
         expiresIn: "24h",
@@ -54,7 +59,7 @@ export async function POST(req: Request) {
     const response = NextResponse.json({ message: "Login successful" });
     response.cookies.set("token", token, {
       httpOnly: true,
-      maxAge: 24 * 60 * 60,
+      maxAge: 576 * 60 * 60,
     });
 
     return response;

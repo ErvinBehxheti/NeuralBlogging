@@ -1,8 +1,7 @@
 export type User = {
-  user: {
-    email: string;
-    name: string;
-    username: string;
-    profilePicture?: string | undefined;
-  };
+  email: string;
+  name: string;
+  username: string;
+  profilePicture?: string | undefined;
+  id: number;
 };

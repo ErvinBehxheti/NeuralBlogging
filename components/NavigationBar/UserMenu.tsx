@@ -22,7 +22,6 @@ const UserMenu = ({ user }: any) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const pathname = usePathname();
-  console.log("pathname", pathname);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -48,11 +47,11 @@ const UserMenu = ({ user }: any) => {
         >
           {user?.profilePicture ? (
             <Image
-              src={user.profilePicture}
+              src={`http://res.cloudinary.com/diaxmj0pa/image/fetch/w_auto,f_auto/https://ycrkkvrjsrwtfpblbwrq.supabase.co/storage/v1/object/public/images/${user.profilePicture}`}
               alt="Profile Picture"
-              width={40}
-              height={40}
-              className="rounded-full object-cover"
+              width={44}
+              height={44}
+              className="w-11 h-11 rounded-full object-cover"
             />
           ) : (
             <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-500 text-white text-xl">
@@ -134,11 +133,11 @@ const UserMenu = ({ user }: any) => {
           >
             {user?.profilePicture ? (
               <Image
-                src={user.profilePicture}
+                src={`http://res.cloudinary.com/diaxmj0pa/image/fetch/w_auto,f_auto/https://ycrkkvrjsrwtfpblbwrq.supabase.co/storage/v1/object/public/images/${user.profilePicture}`}
                 alt="Profile Picture"
                 width={40}
                 height={40}
-                className="rounded-full object-cover"
+                className="w-10 h-10 rounded-full object-cover"
               />
             ) : (
               <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-500 text-white text-xl">

@@ -1,27 +1,25 @@
+import { supabase } from "@/utils/supabase";
 import { cookies } from "next/headers";
 import Image from "next/image";
-import { supabase } from "../../utils/supabase";
 import { FaUserAlt } from "react-icons/fa";
 
-async function getArticles(params: any) {
+export default async function Post({ params }: { params: any }) {
   const { titleSearch } = params;
 
-  const { data, error } = await supabase(cookies)
-    .from("articles")
-    .select("*")
-    .eq("titleSearch", titleSearch)
-    .single();
+  let post = null;
 
-  if (error) throw new Error(error.message);
+  if (titleSearch) {
+    const { data, error } = await supabase(cookies)
+      .from("articles")
+      .select("*")
+      .eq("titleSearch", titleSearch)
+      .single();
 
-  return data;
-}
-
-export default async function Post({ params }: { params: any }) {
-  const post = await getArticles(params);
+    post = data;
+  }
 
   return (
-    <main className="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900/0 min-h-screen text-white pt-24">
+    <main className="bg-gradient-to-b from-gray-900/10 to-gray-900/0 min-h-screen text-white">
       <div className="max-w-4xl px-4 py-12 mx-auto lg:px-8">
         <div className="bg-white/30 bg-opacity-10 glassmorphism rounded-xl p-8 shadow-lg mx-auto">
           {post && post.image && (

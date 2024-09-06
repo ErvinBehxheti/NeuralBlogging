@@ -1,14 +1,15 @@
 "use server";
+import { NextResponse } from "next/server";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import prisma from "@/utils/db";
 
-export async function addArticle(formData: FormData) {
+export async function POST(req: Request) {
+  const formData = await req.formData();
   const title = formData.get("title") as string;
   const content = formData.get("content") as string;
   const authorUsername = formData.get("authorUsername") as string;
-  const image = formData.get("image") as File;
+  const image = formData.get("image") as File | null;
 
   const cookieStore = cookies();
   const supabase = createServerComponentClient({ cookies: () => cookieStore });
@@ -22,7 +23,7 @@ export async function addArticle(formData: FormData) {
 
     if (uploadError) {
       console.error("Error uploading image", uploadError);
-      return;
+      return NextResponse.json({ message: "Error", error: uploadError });
     }
 
     imageUrl = data?.path;
@@ -46,11 +47,9 @@ export async function addArticle(formData: FormData) {
     });
 
     // await sendPushNotifications(title, content, titleSearch);
-
-    redirect("/");
-    return { message: "Success" };
+    return NextResponse.json({ message: "Success", blog: newBlog });
   } catch (error) {
     console.error("Error inserting data", error);
-    return { message: "Error", error };
+    return NextResponse.json({ message: "Error", error });
   }
 }

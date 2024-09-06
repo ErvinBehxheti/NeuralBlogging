@@ -6,7 +6,7 @@ export async function middleware(req: NextRequest) {
   const token = req.cookies.get("token")?.value;
 
   if (!token) {
-    return NextResponse.redirect(new URL("/signin", req.url));
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 
   const secretKey = new TextEncoder().encode(process.env.SECRET_KEY);
@@ -15,10 +15,10 @@ export async function middleware(req: NextRequest) {
     const { payload } = await jwtVerify(token, secretKey);
     return payload && NextResponse.next();
   } catch (error) {
-    return NextResponse.redirect(new URL("/signin", req.url));
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 }
 
 export const config = {
-  matcher: ["/writearticle"],
+  matcher: ["/writearticle", "/profile"],
 };

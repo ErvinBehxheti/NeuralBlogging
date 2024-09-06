@@ -8,15 +8,16 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  title     String   @db.VarChar(255)
-  content   String?
-  published Boolean  @default(false)
-  author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
+model Blog {
+  id             Int      @id @default(autoincrement())
+  title          String
+  titleSearch    String
+  content        String
+  authorUsername String
+  author         User     @relation(fields: [authorUsername], references: [username])
+  imageUrl       String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }
 
 model Profile {
@@ -27,11 +28,12 @@ model Profile {
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
-  email    String   @unique
-  name     String?
-  username String
-  password String
-  posts    Post[]
-  profile  Profile?
+  id             Int      @id @default(autoincrement())
+  email          String   @unique
+  profilePicture String?
+  name           String?
+  username       String   @unique
+  password       String
+  posts          Blog[]
+  profile        Profile?
 }
