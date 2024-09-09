@@ -6,14 +6,11 @@ import { AiOutlineLogin } from "react-icons/ai";
 import InstallButton from "./InstallButton";
 import NotificationButton from "./NotificationButton";
 import CreateAiBlog from "./CreateAiBlog";
-import { headers } from "next/headers";
 import { verifyToken } from "@/serveractions/verifyToken";
 import UserMenu from "./UserMenu";
 import prisma from "@/utils/db";
 
 const Header = async () => {
-  const headerList = headers();
-  const pathname = headerList.get("x-current-path");
   const userID = await verifyToken();
   let user = null;
 
@@ -59,7 +56,7 @@ const Header = async () => {
 
       {/* Bottom Navbar for small devices */}
       <div className="hidden max-md:block">
-        <UserMenu user={user} pathname={pathname} />
+        <UserMenu user={user} />
       </div>
     </>
   );

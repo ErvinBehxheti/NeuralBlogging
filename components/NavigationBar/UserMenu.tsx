@@ -18,7 +18,18 @@ import NotificationButton from "./NotificationButton";
 import SignOutButton from "./SignoutButton";
 import { usePathname } from "next/navigation";
 
-const UserMenu = ({ user }: any) => {
+const UserMenu = ({
+  user,
+}: {
+  user: {
+    id: number;
+    email: string;
+    profilePicture: string | null;
+    name: string | null;
+    username: string;
+    password: string;
+  } | null;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const pathname = usePathname();
@@ -55,7 +66,7 @@ const UserMenu = ({ user }: any) => {
             />
           ) : (
             <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-500 text-white text-xl">
-              {getInitial(user?.name)}
+              {getInitial(user?.name as string)}
             </div>
           )}
         </button>
@@ -141,7 +152,7 @@ const UserMenu = ({ user }: any) => {
               />
             ) : (
               <div className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-500 text-white text-xl">
-                {getInitial(user?.name)}
+                {getInitial(user?.name as string)}
               </div>
             )}
           </button>
