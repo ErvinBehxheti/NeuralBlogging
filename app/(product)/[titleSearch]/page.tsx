@@ -1,5 +1,4 @@
-import { supabase } from "@/utils/supabase";
-import { cookies } from "next/headers";
+import prisma from "@/utils/db";
 import Image from "next/image";
 import { FaUserAlt } from "react-icons/fa";
 
@@ -9,23 +8,21 @@ export default async function Post({ params }: { params: any }) {
   let post = null;
 
   if (titleSearch) {
-    const { data, error } = await supabase(cookies)
-      .from("articles")
-      .select("*")
-      .eq("titleSearch", titleSearch)
-      .single();
+    const blogData = await prisma.blog.findFirst({
+      where: { titleSearch: titleSearch },
+    });
 
-    post = data;
+    post = blogData;
   }
 
   return (
     <main className="bg-gradient-to-b from-gray-900/10 to-gray-900/0 min-h-screen text-white">
       <div className="max-w-4xl px-4 py-12 mx-auto lg:px-8">
         <div className="bg-white/30 bg-opacity-10 glassmorphism rounded-xl p-8 shadow-lg mx-auto">
-          {post && post.image && (
+          {post && post.imageUrl && (
             <div className="relative h-72 rounded-lg overflow-hidden mb-6">
               <Image
-                src={`http://res.cloudinary.com/diaxmj0pa/image/fetch/w_auto,f_auto/https://opplwblqtuvbutcbnlbg.supabase.co/storage/v1/object/public/images/${post.image}`}
+                src={`http://res.cloudinary.com/diaxmj0pa/image/fetch/w_auto,f_auto/https://ycrkkvrjsrwtfpblbwrq.supabase.co/storage/v1/object/public/images/${post.imageUrl}`}
                 alt={post.title}
                 fill
                 className="object-cover object-center"
@@ -37,7 +34,7 @@ export default async function Post({ params }: { params: any }) {
             {post?.title}
           </h1>
           <p className="text-lg flex items-center gap-2 text-gray-300 mb-6">
-            <FaUserAlt /> {post?.author}
+            <FaUserAlt /> {post?.authorUsername}
           </p>
           <div className="text-lg text-gray-100">
             <p>{post?.content}</p>

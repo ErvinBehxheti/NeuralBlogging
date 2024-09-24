@@ -5,9 +5,7 @@ import { supabase } from "@/utils/supabase";
 import { cookies } from "next/headers";
 
 const Home = async () => {
-  const { data: articles } = await supabase(cookies)
-    .from("articles")
-    .select("*");
+  const { data: articles } = await supabase(cookies).from("Blog").select("*");
 
   return (
     <div className="min-h-screen">

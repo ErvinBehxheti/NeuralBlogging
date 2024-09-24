@@ -8,8 +8,8 @@ import { motion } from "framer-motion";
 export type Post = {
   post: {
     id: number;
-    author: string;
-    image: string;
+    authorUsername: string;
+    imageUrl: string;
     title: string;
     titleSearch: string;
     content: string;
@@ -27,7 +27,7 @@ const Card = ({ post }: Post) => {
         <div className="relative h-64 w-full mb-4">
           <Image
             className="rounded-lg object-cover"
-            src={`http://res.cloudinary.com/diaxmj0pa/image/fetch/w_auto,f_auto/https://opplwblqtuvbutcbnlbg.supabase.co/storage/v1/object/public/images/${post.image}`}
+            src={`http://res.cloudinary.com/diaxmj0pa/image/fetch/w_auto,f_auto/https://ycrkkvrjsrwtfpblbwrq.supabase.co/storage/v1/object/public/images/${post.imageUrl}`}
             alt={post.title}
             priority
             fill
@@ -41,7 +41,7 @@ const Card = ({ post }: Post) => {
           </p>
           <div className="flex items-center text-sm">
             <FaUserAlt className="text-white mr-2" />
-            <span className="text-gray-300">{post.author}</span>
+            <span className="text-gray-300">{post.authorUsername}</span>
           </div>
         </div>
       </Link>
